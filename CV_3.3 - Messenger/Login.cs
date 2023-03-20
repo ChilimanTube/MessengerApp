@@ -51,5 +51,10 @@ namespace CV_3._3___Messenger
                 }
             }
         }
+
+        private void AppName_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
