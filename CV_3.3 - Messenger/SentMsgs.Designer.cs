@@ -37,47 +37,53 @@
             // MessageList
             // 
             this.MessageList.FormattingEnabled = true;
-            this.MessageList.ItemHeight = 20;
-            this.MessageList.Location = new System.Drawing.Point(12, 14);
+            this.MessageList.ItemHeight = 15;
+            this.MessageList.Location = new System.Drawing.Point(10, 10);
+            this.MessageList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MessageList.Name = "MessageList";
-            this.MessageList.Size = new System.Drawing.Size(266, 424);
+            this.MessageList.Size = new System.Drawing.Size(233, 319);
             this.MessageList.TabIndex = 1;
             // 
             // MessageView
             // 
             this.MessageView.FormattingEnabled = true;
-            this.MessageView.ItemHeight = 20;
-            this.MessageView.Location = new System.Drawing.Point(284, 47);
+            this.MessageView.ItemHeight = 15;
+            this.MessageView.Location = new System.Drawing.Point(248, 35);
+            this.MessageView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MessageView.Name = "MessageView";
-            this.MessageView.Size = new System.Drawing.Size(504, 324);
+            this.MessageView.Size = new System.Drawing.Size(442, 244);
             this.MessageView.TabIndex = 3;
             // 
             // DeleteMsg
             // 
-            this.DeleteMsg.Location = new System.Drawing.Point(284, 377);
+            this.DeleteMsg.Location = new System.Drawing.Point(248, 283);
+            this.DeleteMsg.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.DeleteMsg.Name = "DeleteMsg";
-            this.DeleteMsg.Size = new System.Drawing.Size(120, 61);
+            this.DeleteMsg.Size = new System.Drawing.Size(105, 46);
             this.DeleteMsg.TabIndex = 5;
             this.DeleteMsg.Text = "Delete";
             this.DeleteMsg.UseVisualStyleBackColor = true;
+            this.DeleteMsg.Click += new System.EventHandler(this.DeleteMsg_Click);
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(284, 14);
+            this.textBox1.Location = new System.Drawing.Point(248, 10);
+            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBox1.Name = "textBox1";
             this.textBox1.PlaceholderText = "Recipient";
-            this.textBox1.Size = new System.Drawing.Size(504, 27);
+            this.textBox1.Size = new System.Drawing.Size(442, 23);
             this.textBox1.TabIndex = 6;
             // 
             // SentMsgs
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(700, 338);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.DeleteMsg);
             this.Controls.Add(this.MessageView);
             this.Controls.Add(this.MessageList);
+            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "SentMsgs";
             this.Text = "SentMsgs";
             this.ResumeLayout(false);

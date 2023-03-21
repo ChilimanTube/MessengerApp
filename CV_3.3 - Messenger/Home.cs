@@ -26,6 +26,7 @@ namespace CV_3._3___Messenger
         {
             NewMessage newMessage = new NewMessage();
             newMessage.Show();
+            this.Hide();
         }
         
         private void SentMsgsBtn_Click(object sender, EventArgs e)

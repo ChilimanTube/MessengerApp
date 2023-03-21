@@ -20,6 +20,9 @@ namespace CV_3._3___Messenger
             InitializeComponent();
         }
 
+        public static string username;
+        public static int id;
+
         private void SignUpLabel_Click(object sender, EventArgs e)
         {
             
@@ -41,8 +44,23 @@ namespace CV_3._3___Messenger
 
                 if (count > 0)
                 {
+                    username = usernameTextBox.Text;
                     Home home = new Home();
                     home.Show();
+
+                    //retrieve the user's id
+                    string query2 = "SELECT UserID FROM Users WHERE Username = @Username";
+                    using (SqlCommand command2 = new SqlCommand(query2, connection))
+                    {
+                        command2.Parameters.AddWithValue("@Username", username);
+                        using (SqlDataReader dataReader = command2.ExecuteReader())
+                        {
+                            while (dataReader.Read())
+                            {
+                                id = (int)dataReader["UserID"];
+                            }
+                        }
+                    }
                 }
                 else
                 {
