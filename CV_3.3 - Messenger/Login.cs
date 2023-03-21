@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace CV_3._3___Messenger
 {
@@ -21,8 +22,7 @@ namespace CV_3._3___Messenger
 
         private void SignUpLabel_Click(object sender, EventArgs e)
         {
-            SignUp signup = new SignUp();
-            signup.Show();
+            
         }
 
         private void LoginBtn_Click(object sender, EventArgs e)
@@ -55,6 +55,13 @@ namespace CV_3._3___Messenger
         private void AppName_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void SignUpBtn_Click(object sender, EventArgs e)
+        {
+            SignUp signup = new SignUp();
+            signup.Show();
+            this.Hide();
         }
     }
 }

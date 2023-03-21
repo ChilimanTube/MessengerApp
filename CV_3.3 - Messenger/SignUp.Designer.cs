@@ -34,6 +34,7 @@
             this.SignUpBtn = new System.Windows.Forms.Button();
             this.SignUpLabel = new System.Windows.Forms.Label();
             this.LoginBtn = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // usernameTextBox
@@ -43,6 +44,7 @@
             this.usernameTextBox.PlaceholderText = "Username";
             this.usernameTextBox.Size = new System.Drawing.Size(233, 27);
             this.usernameTextBox.TabIndex = 1;
+            this.usernameTextBox.TextChanged += new System.EventHandler(this.usernameTextBox_TextChanged);
             // 
             // passwordTextBox
             // 
@@ -93,11 +95,22 @@
             this.LoginBtn.UseVisualStyleBackColor = true;
             this.LoginBtn.Click += new System.EventHandler(this.LoginBtn_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Segoe UI", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.label1.Location = new System.Drawing.Point(518, 207);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(117, 17);
+            this.label1.TabIndex = 10;
+            this.label1.Text = "Password Strength";
+            // 
             // SignUp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.LoginBtn);
             this.Controls.Add(this.SignUpLabel);
             this.Controls.Add(this.SignUpBtn);
@@ -106,6 +119,7 @@
             this.Controls.Add(this.usernameTextBox);
             this.Name = "SignUp";
             this.Text = "SignUp";
+            this.Load += new System.EventHandler(this.SignUp_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -119,5 +133,6 @@
         private Button SignUpBtn;
         private Label SignUpLabel;
         private Button LoginBtn;
+        private Label label1;
     }
 }

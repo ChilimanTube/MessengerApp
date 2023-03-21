@@ -18,8 +18,8 @@ namespace CV_3._3___Messenger
             {
                 SqlConnectionStringBuilder consStringBuilder = new SqlConnectionStringBuilder();
                 consStringBuilder.DataSource = ReadSetting("DataSource");
+                consStringBuilder.IntegratedSecurity = bool.Parse(ReadSetting("IntergratedSecurity"));
                 consStringBuilder.InitialCatalog = ReadSetting("InitialCatalog");
-                consStringBuilder.IntegratedSecurity = bool.Parse(ReadSetting("IntegratedSecurity"));
                 connection = new SqlConnection(consStringBuilder.ConnectionString);
                 connection.Open();
             }
