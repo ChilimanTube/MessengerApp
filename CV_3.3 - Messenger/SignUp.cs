@@ -42,18 +42,28 @@ namespace CV_3._3___Messenger
 
         static void CreateUser(SqlConnection connection, string username, string password)
         {
-            string query = "INSERT INTO Users (Username, Password) VALUES (@Username, @Password);";
+            string query = "INSERT INTO Users (Username, Password) VALUES (@Username, @Password);"; //fix typo in database
 
             using (SqlCommand command = new SqlCommand(query, connection))
             {  
 
                 command.Parameters.AddWithValue("@Username", username);
                 command.Parameters.AddWithValue("@Password", password);
+                
+                int result = 0;
+                
+                try
+                {
+                    result = command.ExecuteNonQuery();
+                }
+                catch (System.Data.SqlClient.SqlException e)
+                {
+                    MessageBox.Show("Account named " + username +" already exists.");
+                }
 
-                int result = command.ExecuteNonQuery();
                 if (result > 0)
                 {
-                    Console.WriteLine("User created successfully.");
+                    MessageBox.Show("Account created succesfully");
                 }
             }
         }

@@ -31,7 +31,8 @@
             this.MessageList = new System.Windows.Forms.ListBox();
             this.MessageView = new System.Windows.Forms.ListBox();
             this.DeleteMsg = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.RecipientTextBox = new System.Windows.Forms.TextBox();
+            this.SubjectTextBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // MessageList
@@ -41,22 +42,22 @@
             this.MessageList.Location = new System.Drawing.Point(10, 10);
             this.MessageList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MessageList.Name = "MessageList";
-            this.MessageList.Size = new System.Drawing.Size(233, 319);
+            this.MessageList.Size = new System.Drawing.Size(438, 469);
             this.MessageList.TabIndex = 1;
             // 
             // MessageView
             // 
             this.MessageView.FormattingEnabled = true;
             this.MessageView.ItemHeight = 15;
-            this.MessageView.Location = new System.Drawing.Point(248, 35);
+            this.MessageView.Location = new System.Drawing.Point(454, 37);
             this.MessageView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MessageView.Name = "MessageView";
-            this.MessageView.Size = new System.Drawing.Size(442, 244);
+            this.MessageView.Size = new System.Drawing.Size(653, 244);
             this.MessageView.TabIndex = 3;
             // 
             // DeleteMsg
             // 
-            this.DeleteMsg.Location = new System.Drawing.Point(248, 283);
+            this.DeleteMsg.Location = new System.Drawing.Point(1002, 285);
             this.DeleteMsg.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.DeleteMsg.Name = "DeleteMsg";
             this.DeleteMsg.Size = new System.Drawing.Size(105, 46);
@@ -65,21 +66,31 @@
             this.DeleteMsg.UseVisualStyleBackColor = true;
             this.DeleteMsg.Click += new System.EventHandler(this.DeleteMsg_Click);
             // 
-            // textBox1
+            // RecipientTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(248, 10);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.PlaceholderText = "Recipient";
-            this.textBox1.Size = new System.Drawing.Size(442, 23);
-            this.textBox1.TabIndex = 6;
+            this.RecipientTextBox.Location = new System.Drawing.Point(454, 10);
+            this.RecipientTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.RecipientTextBox.Name = "RecipientTextBox";
+            this.RecipientTextBox.PlaceholderText = "Recipient";
+            this.RecipientTextBox.Size = new System.Drawing.Size(315, 23);
+            this.RecipientTextBox.TabIndex = 6;
+            // 
+            // SubjectTextBox
+            // 
+            this.SubjectTextBox.Location = new System.Drawing.Point(792, 11);
+            this.SubjectTextBox.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.SubjectTextBox.Name = "SubjectTextBox";
+            this.SubjectTextBox.PlaceholderText = "Subject";
+            this.SubjectTextBox.Size = new System.Drawing.Size(315, 23);
+            this.SubjectTextBox.TabIndex = 7;
             // 
             // SentMsgs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(700, 338);
-            this.Controls.Add(this.textBox1);
+            this.ClientSize = new System.Drawing.Size(1119, 493);
+            this.Controls.Add(this.SubjectTextBox);
+            this.Controls.Add(this.RecipientTextBox);
             this.Controls.Add(this.DeleteMsg);
             this.Controls.Add(this.MessageView);
             this.Controls.Add(this.MessageList);
@@ -96,6 +107,7 @@
         private ListBox MessageList;
         private ListBox MessageView;
         private Button DeleteMsg;
-        private TextBox textBox1;
+        private TextBox RecipientTextBox;
+        private TextBox SubjectTextBox;
     }
 }

@@ -31,7 +31,7 @@ namespace CV_3._3___Messenger
         private void LoginBtn_Click(object sender, EventArgs e)
         {
             // SQL query to check if the user exists
-            string query = "SELECT COUNT(*) FROM users WHERE username = @username AND password = @password";
+            string query = "SELECT COUNT(*) FROM Users WHERE username = @username AND password = @password";
 
             using (SqlCommand command = new SqlCommand(query, connection))
             {
@@ -47,6 +47,7 @@ namespace CV_3._3___Messenger
                     username = usernameTextBox.Text;
                     Home home = new Home();
                     home.Show();
+                    this.Hide();
 
                     //retrieve the user's id
                     string query2 = "SELECT UserID FROM Users WHERE Username = @Username";
@@ -69,7 +70,7 @@ namespace CV_3._3___Messenger
                 }
             }
         }
-
+        
         private void AppName_Click(object sender, EventArgs e)
         {
 
@@ -80,6 +81,14 @@ namespace CV_3._3___Messenger
             SignUp signup = new SignUp();
             signup.Show();
             this.Hide();
+        }
+
+        private void passwordTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                LoginBtn_Click(sender, e);
+            }
         }
     }
 }

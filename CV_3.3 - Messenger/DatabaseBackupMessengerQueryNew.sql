@@ -83,16 +83,6 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[MessageRecipients](
-	[MessageID] [int] NOT NULL,
-	[RecipientID] [int] NOT NULL,
- CONSTRAINT [PK_MessageRecipients] PRIMARY KEY CLUSTERED 
-(
-	[MessageID] ASC,
-	[RecipientID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
 /****** Object:  Table [dbo].[Messages]    Script Date: 3/21/2023 2:39:37 PM ******/
 SET ANSI_NULLS ON
 GO
@@ -100,7 +90,7 @@ SET QUOTED_IDENTIFIER ON
 GO
 CREATE TABLE [dbo].[Messages](
 	[MessageID] [int] IDENTITY(1,1) NOT NULL,
-	[MessageRecieverID] [int] NOT NULL,
+	[RecieverID] [int] NOT NULL,
 	[SenderID] [int] NOT NULL,
 	[Subject] [varchar](50) NOT NULL,
 	[Text] [varchar](max) NOT NULL,
@@ -117,29 +107,10 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[PasswordPolicies](
-	[PasswordPolicyID] [int] IDENTITY(1,1) NOT NULL,
-	[MinimumLength] [int] NOT NULL,
-	[RequireUppercase] [bit] NOT NULL,
-	[RequireLowercase] [bit] NOT NULL,
-	[RequireNumbers] [bit] NOT NULL,
-	[RequireSymbols] [bit] NOT NULL,
-PRIMARY KEY CLUSTERED 
-(
-	[PasswordPolicyID] ASC
-)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON, OPTIMIZE_FOR_SEQUENTIAL_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[Users]    Script Date: 3/21/2023 2:39:37 PM ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 CREATE TABLE [dbo].[Users](
 	[UserID] [int] IDENTITY(1,1) NOT NULL,
 	[Username] [varchar](50) NOT NULL UNIQUE,
-	[Pasword] [varchar](100) NOT NULL,
-	[PasswordPolicyID] [int] NOT NULL,
+	[Password] [varchar](100) NOT NULL,
 PRIMARY KEY CLUSTERED 
 (
 	[UserID] ASC
@@ -148,25 +119,10 @@ PRIMARY KEY CLUSTERED
 GO
 ALTER TABLE [dbo].[Messages] ADD  DEFAULT ((0)) FOR [IsDeleted]
 GO
-ALTER TABLE [dbo].[MessageRecipients]  WITH CHECK ADD  CONSTRAINT [FK_Message] FOREIGN KEY([MessageID])
-REFERENCES [dbo].[Messages] ([MessageID])
-GO
-ALTER TABLE [dbo].[MessageRecipients] CHECK CONSTRAINT [FK_Message]
-GO
-ALTER TABLE [dbo].[MessageRecipients]  WITH CHECK ADD  CONSTRAINT [FK_Recipient] FOREIGN KEY([RecipientID])
-REFERENCES [dbo].[Users] ([UserID])
-GO
-ALTER TABLE [dbo].[MessageRecipients] CHECK CONSTRAINT [FK_Recipient]
-GO
 ALTER TABLE [dbo].[Messages]  WITH CHECK ADD  CONSTRAINT [FK_SENDER] FOREIGN KEY([SenderID])
 REFERENCES [dbo].[Users] ([UserID])
 GO
 ALTER TABLE [dbo].[Messages] CHECK CONSTRAINT [FK_SENDER]
-GO
-ALTER TABLE [dbo].[Users]  WITH CHECK ADD  CONSTRAINT [FK_PasswordPolicy] FOREIGN KEY([PasswordPolicyID])
-REFERENCES [dbo].[PasswordPolicies] ([PasswordPolicyID])
-GO
-ALTER TABLE [dbo].[Users] CHECK CONSTRAINT [FK_PasswordPolicy]
 GO
 USE [master]
 GO
