@@ -51,8 +51,7 @@ namespace CV_3._3___Messenger
             this.Close();
         }
 
-        private void usernameTextBox_TextChanged(object sender, EventArgs e){
-}
+        private void usernameTextBox_TextChanged(object sender, EventArgs e){}
 
         static bool CreateUser(SqlConnection connection, string username, string password)
         {
@@ -96,6 +95,7 @@ namespace CV_3._3___Messenger
         private void passwordTextBox_TextChanged(object sender, EventArgs e)
         {
             int strength = passwordCheck(passwordTextBox.Text);
+            label1.Visible = true;
 
             if (strength <= 3)
             {
@@ -135,9 +135,7 @@ namespace CV_3._3___Messenger
             Match numbers = Regex.Match(password, numberRegex);
             Match upperCase = Regex.Match(password, upperCaseRegex);
             Match lowerCase = Regex.Match(password, lowerCaseRegex);
-            
-            
-            
+                                    
             if (specialSymbol.Success)
             {
                 passwordStrength++;

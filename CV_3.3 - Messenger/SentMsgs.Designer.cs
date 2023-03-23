@@ -64,7 +64,7 @@
             this.DeleteMsg.TabIndex = 5;
             this.DeleteMsg.Text = "Delete";
             this.DeleteMsg.UseVisualStyleBackColor = true;
-            this.DeleteMsg.Click += new System.EventHandler(this.DeleteMsg_Click);
+            this.DeleteMsg.Click += new System.EventHandler(this.DeleteButton_Click);
             // 
             // RecipientTextBox
             // 
@@ -97,6 +97,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "SentMsgs";
             this.Text = "SentMsgs";
+            this.Load += new System.EventHandler(this.SentMsgs_Load_1);
             this.ResumeLayout(false);
             this.PerformLayout();
 

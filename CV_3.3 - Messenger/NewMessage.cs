@@ -59,7 +59,8 @@ namespace CV_3._3___Messenger
         private void SendBtn_Click(object sender, EventArgs e)
         {
             int recipientID = 0;
-            string query = "INSERT INTO Messages (RecipientID, SenderID, Subject, Text) VALUES (@RecipientID, @SenderID, @Subject, @MessageText);";
+            string query = "INSERT INTO Messages (RecipientID, SenderID, Subject, Text, SendDateTime)" +
+                " VALUES (@RecipientID, @SenderID, @Subject, @MessageText, @DateTime);";
 
             using (SqlCommand command = new SqlCommand(query, connection))
             {
@@ -80,6 +81,9 @@ namespace CV_3._3___Messenger
                 command.Parameters.AddWithValue("@SenderID", Login.id);
                 command.Parameters.AddWithValue("@Subject", SubjectTextBox.Text);
                 command.Parameters.AddWithValue("@MessageText", MessageTextBox.Text);
+                command.Parameters.AddWithValue("@DateTime", DateTime.Now);
+
+                command.ExecuteNonQuery();
 
                 MessageBox.Show("Message sent.");
                 this.Close();
