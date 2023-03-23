@@ -21,7 +21,8 @@ namespace CV_3._3___Messenger
 
         private void ReceivedMsgsBtn_Click(object sender, EventArgs e)
         {
-
+            ReceivedMsgs receivedMsgs = new ReceivedMsgs();
+            receivedMsgs.Show();
         }
 
         private void NewMsgBtn_Click(object sender, EventArgs e)

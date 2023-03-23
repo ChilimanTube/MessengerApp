@@ -65,8 +65,10 @@ namespace CV_3._3___Messenger
                 }
                 else
                 {
-                    // Display an error message if the user doesn't exist
-                    MessageBox.Show("Invalid username or password");
+                    // Display an error message if the user doesn't exist                   
+                    MessageBox.Show("Invalid username or password", MessageBoxIcon.Error.ToString());
+
+
                 }
             }
         }
