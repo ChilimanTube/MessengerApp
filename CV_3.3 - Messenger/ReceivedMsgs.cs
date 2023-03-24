@@ -20,10 +20,10 @@ namespace CV_3._3___Messenger
 
         SqlConnection connection = DatabaseCon.GetInstance();
 
-        private void LoadSentMessagesPanel()
+        private void LoadRecievedMessagesPanel()
         {
-            string query = "SELECT message.Subject, message.Text, message.SendDateTime, useros.Username, message.RecipientID, message.IsDeleted," +
-                " message.MessageID FROM Messages message JOIN Users useros ON message.SenderID = useros.UserID" +
+            string query = "SELECT message.Subject, message.Text, message.SendDateTime, useros.Username, message.SenderID, message.IsDeleted," +
+                " message.MessageID FROM Messages message JOIN Users useros ON message.RecipientID = useros.UserID" +
                 " WHERE message.SenderID = @UserID ORDER BY message.SendDateTime DESC";
 
             using (SqlCommand command = new SqlCommand(query, connection))
@@ -95,17 +95,20 @@ namespace CV_3._3___Messenger
             object messageID = btn.Tag.ToString();
             Control messagePanel = btn.Parent;
 
-            // SQL query to delete the message
             string query = "UPDATE Messages SET IsDeleted = 1 WHERE MessageID = @Id";
 
             using (SqlCommand command = new SqlCommand(query, connection))
             {
-                // Set the parameters for the query
                 command.Parameters.AddWithValue("@id", messageID);
                 command.ExecuteNonQuery();
 
                 MessageList.Controls.Remove(messagePanel);
             }
+        }
+
+        private void ReceivedMsgs_Load(object sender, EventArgs e)
+        {
+            LoadRecievedMessagesPanel();
         }
     }
 }

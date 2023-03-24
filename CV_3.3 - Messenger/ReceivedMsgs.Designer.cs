@@ -38,63 +38,57 @@
             // MessageList
             // 
             this.MessageList.FormattingEnabled = true;
-            this.MessageList.ItemHeight = 15;
-            this.MessageList.Location = new System.Drawing.Point(10, 9);
-            this.MessageList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MessageList.ItemHeight = 20;
+            this.MessageList.Location = new System.Drawing.Point(11, 12);
             this.MessageList.Name = "MessageList";
-            this.MessageList.Size = new System.Drawing.Size(233, 319);
+            this.MessageList.Size = new System.Drawing.Size(697, 424);
             this.MessageList.TabIndex = 0;
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(248, 9);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.textBox1.Location = new System.Drawing.Point(714, 12);
             this.textBox1.Name = "textBox1";
             this.textBox1.PlaceholderText = "Sender";
-            this.textBox1.Size = new System.Drawing.Size(442, 23);
+            this.textBox1.Size = new System.Drawing.Size(505, 27);
             this.textBox1.TabIndex = 1;
             // 
             // MessageView
             // 
             this.MessageView.FormattingEnabled = true;
-            this.MessageView.ItemHeight = 15;
-            this.MessageView.Location = new System.Drawing.Point(248, 34);
-            this.MessageView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.MessageView.ItemHeight = 20;
+            this.MessageView.Location = new System.Drawing.Point(714, 45);
             this.MessageView.Name = "MessageView";
-            this.MessageView.Size = new System.Drawing.Size(442, 244);
+            this.MessageView.Size = new System.Drawing.Size(505, 324);
             this.MessageView.TabIndex = 2;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(584, 281);
-            this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.button1.Location = new System.Drawing.Point(1099, 378);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(105, 46);
+            this.button1.Size = new System.Drawing.Size(120, 61);
             this.button1.TabIndex = 3;
             this.button1.Text = "Mark as read";
             this.button1.UseVisualStyleBackColor = true;
             // 
             // DeleteMsg
             // 
-            this.DeleteMsg.Location = new System.Drawing.Point(248, 283);
-            this.DeleteMsg.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.DeleteMsg.Location = new System.Drawing.Point(714, 378);
             this.DeleteMsg.Name = "DeleteMsg";
-            this.DeleteMsg.Size = new System.Drawing.Size(105, 46);
+            this.DeleteMsg.Size = new System.Drawing.Size(120, 61);
             this.DeleteMsg.TabIndex = 4;
             this.DeleteMsg.Text = "Delete";
             this.DeleteMsg.UseVisualStyleBackColor = true;
             // 
             // ReceivedMsgs
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(700, 338);
+            this.ClientSize = new System.Drawing.Size(1231, 451);
             this.Controls.Add(this.DeleteMsg);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.MessageView);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.MessageList);
-            this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "ReceivedMsgs";
             this.Text = "ReceivedMsgs";
             this.Load += new System.EventHandler(this.ReceivedMsgs_Load);
