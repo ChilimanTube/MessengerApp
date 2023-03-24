@@ -20,6 +20,7 @@ namespace CV_3._3___Messenger
 
         SqlConnection connection = DatabaseCon.GetInstance();
 
+        private Button selectedMessageID;
         private void LoadRecievedMessagesPanel()
         {
             string query = "SELECT message.Subject, message.Text, message.SendDateTime, useros.Username, message.SenderID, message.IsDeleted," +
@@ -58,7 +59,7 @@ namespace CV_3._3___Messenger
 
                             Label senderLabel = new Label
                             {
-                                Text = "To: " + dataReader[5].ToString(),
+                                Text = "SenderID: " + dataReader[5].ToString(),
                                 AutoSize = true,
                                 Dock = DockStyle.Top,
                                 Padding = new Padding(0, 10, 0, 0)
@@ -97,9 +98,25 @@ namespace CV_3._3___Messenger
                                 AutoSize = true,
                                 Dock = DockStyle.Right
                             };
-                            deleteBtn.Click += new EventHandler(DeleteButton_Click);
-                            
+                            deleteBtn.Click += new EventHandler(DelButton_Click);
+
+                            Button viewBtn = new Button
+                            {
+                                Text = "View",
+                                Tag = dataReader[6],
+                                BackColor = Color.Green,
+                                ForeColor = Color.White,
+                                Font = new Font(Font, FontStyle.Bold),
+                                AutoSize = true,
+                                Anchor = AnchorStyles.Right | AnchorStyles.Top,
+                                Padding = new Padding(0, 0, 10, 0)
+                            };
+
+
+                            viewBtn.Click += new EventHandler(ViewMessageBtn_Click);
+
                             messagePanel.Controls.Add(deleteBtn);
+                            messagePanel.Controls.Add(viewBtn);
 
                             // Add the message panel to the message list
                             MessageList.Controls.Add(messagePanel);
@@ -109,20 +126,66 @@ namespace CV_3._3___Messenger
             }
         }
 
-        private void DeleteButton_Click(object sender, EventArgs e)
+        private void DelButton_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
             object messageID = btn.Tag.ToString();
             Control messagePanel = btn.Parent;
 
+            // SQL query to delete the message
             string query = "UPDATE Messages SET IsDeleted = 1 WHERE MessageID = @Id";
 
             using (SqlCommand command = new SqlCommand(query, connection))
             {
+                // Set the parameters for the query
                 command.Parameters.AddWithValue("@id", messageID);
                 command.ExecuteNonQuery();
 
                 MessageList.Controls.Remove(messagePanel);
+            }
+        }
+
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            DelButton_Click(selectedMessageID, e);
+        }
+
+        private void ViewMessageBtn_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            object messageID = btn.Tag.ToString();
+            selectedMessageID = btn;
+
+            // SQL query to delete the message
+            string query = "SELECT Text, Subject, SenderID FROM Messages WHERE MessageID = @Id";
+
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                int SenderID = 0;
+                // Set the parameters for the query
+                command.Parameters.AddWithValue("@id", messageID);
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        MessageView.Text = reader[0].ToString();
+                        SubjectTextBox.Text = reader[1].ToString();
+                        SenderID = reader.GetInt32(2);
+                    }
+                }
+
+                string query2 = "SELECT Username FROM Users WHERE UserID = @UserID;";
+                using (SqlCommand command2 = new SqlCommand(query2, connection))
+                {
+                    command2.Parameters.AddWithValue("@UserID", SenderID);
+                    using (SqlDataReader dataReader = command2.ExecuteReader())
+                    {
+                        while (dataReader.Read())
+                        {
+                            SenderTextBox.Text = (string)dataReader["Username"];
+                        }
+                    }
+                }
             }
         }
 
