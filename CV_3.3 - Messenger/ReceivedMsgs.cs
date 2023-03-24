@@ -38,50 +38,70 @@ namespace CV_3._3___Messenger
 
                         if (isDeleted == 0)
                         {
-                            Panel messagePanel = new Panel();
-                            messagePanel.BorderStyle = BorderStyle.FixedSingle;
-                            messagePanel.Margin = new Padding(5);
-                            messagePanel.Padding = new Padding(5);
-                            messagePanel.AutoSize = true;
-                            messagePanel.Dock = DockStyle.Top;
+                            // Create and configure the panel
+                            Panel messagePanel = new Panel
+                            {
+                                BorderStyle = BorderStyle.FixedSingle,
+                                Margin = new Padding(5),
+                                Padding = new Padding(5),
+                                AutoSize = true,
+                                Dock = DockStyle.Top
+                            };
 
-                            Label subjectLabel = new Label();
-                            subjectLabel.Text = "Subject: " + dataReader[0].ToString();
-                            subjectLabel.AutoSize = true;
-                            subjectLabel.Dock = DockStyle.Top;
+                            // Create and configure the labels
+                            Label subjectLabel = new Label
+                            {
+                                Text = "Subject: " + dataReader[0].ToString(),
+                                AutoSize = true,
+                                Dock = DockStyle.Top
+                            };
+
+                            Label senderLabel = new Label
+                            {
+                                Text = "To: " + dataReader[5].ToString(),
+                                AutoSize = true,
+                                Dock = DockStyle.Top,
+                                Padding = new Padding(0, 10, 0, 0)
+                            };
+
+                            Label sentLabel = new Label
+                            {
+                                Text = "Sent: " + dataReader[2].ToString(),
+                                AutoSize = true,
+                                Dock = DockStyle.Top,
+                                Padding = new Padding(0, 10, 0, 0)
+                            };
+
+                            Label messageLabel = new Label
+                            {
+                                Text = "Text:" + dataReader[1].ToString(),
+                                AutoSize = true,
+                                Dock = DockStyle.Bottom
+                            };
+
+                            // Add the labels to the panel
                             messagePanel.Controls.Add(subjectLabel);
-
-                            Label senderLabel = new Label();
-                            senderLabel.Text = "To: " + dataReader[5].ToString();
-                            senderLabel.AutoSize = true;
-                            senderLabel.Dock = DockStyle.Top;
-                            senderLabel.Padding = new Padding(0, 10, 0, 0);
                             messagePanel.Controls.Add(senderLabel);
-
-                            Label sentLabel = new Label();
-                            sentLabel.Text = "Sent: " + dataReader[2].ToString();
-                            sentLabel.AutoSize = true;
-                            sentLabel.Dock = DockStyle.Top;
-                            sentLabel.Padding = new Padding(0, 10, 0, 0);
                             messagePanel.Controls.Add(sentLabel);
-
-                            Label messageLabel = new Label();
-                            messageLabel.Text = "Text:" + dataReader[1].ToString();
-                            messageLabel.AutoSize = true;
-                            messageLabel.Dock = DockStyle.Bottom;
                             messagePanel.Controls.Add(messageLabel);
 
-                            Button deleteBtn = new Button();
-                            deleteBtn.Text = "Delete";
-                            deleteBtn.Tag = dataReader[6];
-                            deleteBtn.BackColor = Color.Red;
-                            deleteBtn.ForeColor = Color.White;
-                            deleteBtn.Font = new Font(deleteBtn.Font, FontStyle.Bold);
-                            deleteBtn.AutoSize = true;
-                            deleteBtn.Dock = DockStyle.Right;
+
+                            // Create and configure the delete button
+                            Button deleteBtn = new Button
+                            {
+                                Text = "Delete",
+                                Tag = dataReader[6],
+                                BackColor = Color.Red,
+                                ForeColor = Color.White,
+                                Font = new Font(Font, FontStyle.Bold),
+                                AutoSize = true,
+                                Dock = DockStyle.Right
+                            };
                             deleteBtn.Click += new EventHandler(DeleteButton_Click);
+                            
                             messagePanel.Controls.Add(deleteBtn);
 
+                            // Add the message panel to the message list
                             MessageList.Controls.Add(messagePanel);
                         }
                     }

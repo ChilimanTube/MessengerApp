@@ -9,12 +9,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace CV_3._3___Messenger
 {
     public partial class SentMsgs : Form
     {
         SqlConnection connection = DatabaseCon.GetInstance();
+
+        private Button selectedMessageID;
+
+
         public SentMsgs()
         {
             InitializeComponent();
@@ -37,51 +42,87 @@ namespace CV_3._3___Messenger
                         int isDeleted = dataReader.GetInt32(5);
 
                         if (isDeleted == 0)
-                        {                         
-                            Panel messagePanel = new Panel();
-                            messagePanel.BorderStyle = BorderStyle.FixedSingle;
-                            messagePanel.Margin = new Padding(5);
-                            messagePanel.Padding = new Padding(5);
-                            messagePanel.AutoSize = true;
-                            messagePanel.Dock = DockStyle.Top;
+                        {
+                            // Create and configure the panel
+                            Panel messagePanel = new Panel
+                            {
+                                BorderStyle = BorderStyle.FixedSingle,
+                                Margin = new Padding(5),
+                                Padding = new Padding(5),
+                                AutoSize = true,
+                                Dock = DockStyle.Top
+                            };
 
-                            Label subjectLabel = new Label();
-                            subjectLabel.Text = "Subject: " + dataReader[0].ToString();
-                            subjectLabel.AutoSize = true;
-                            subjectLabel.Dock = DockStyle.Top;
+                            // Create and configure the labels
+                            Label subjectLabel = new Label
+                            {
+                                Text = "Subject: " + dataReader[0].ToString(),
+                                AutoSize = true,
+                                Dock = DockStyle.Top
+                            };
+
+                            Label senderLabel = new Label
+                            {
+                                Text = "RecipientID: " + dataReader[5].ToString(),
+                                AutoSize = true,
+                                Dock = DockStyle.Top,
+                                Padding = new Padding(0, 10, 0, 0)
+                            };
+
+                            Label sentLabel = new Label
+                            {
+                                Text = "Sent: " + dataReader[2].ToString(),
+                                AutoSize = true,
+                                Dock = DockStyle.Top,
+                                Padding = new Padding(0, 10, 0, 0)
+                            };
+
+                            Label messageLabel = new Label
+                            {
+                                Text = "Text:" + dataReader[1].ToString(),
+                                AutoSize = true,
+                                Dock = DockStyle.Bottom
+                            };
+
+                            // Add the labels to the panel
                             messagePanel.Controls.Add(subjectLabel);
-
-                            Label senderLabel = new Label();
-                            senderLabel.Text = "To: " + dataReader[5].ToString();
-                            senderLabel.AutoSize = true;
-                            senderLabel.Dock = DockStyle.Top;
-                            senderLabel.Padding = new Padding(0, 10, 0, 0);
                             messagePanel.Controls.Add(senderLabel);
-
-                            Label sentLabel = new Label();
-                            sentLabel.Text = "Sent: " + dataReader[2].ToString();
-                            sentLabel.AutoSize = true;
-                            sentLabel.Dock = DockStyle.Top;
-                            sentLabel.Padding = new Padding(0, 10, 0, 0);
                             messagePanel.Controls.Add(sentLabel);
-
-                            Label messageLabel = new Label();
-                            messageLabel.Text = "Text:" + dataReader[1].ToString();
-                            messageLabel.AutoSize = true;
-                            messageLabel.Dock = DockStyle.Bottom;
                             messagePanel.Controls.Add(messageLabel);
 
-                            Button deleteBtn = new Button();
-                            deleteBtn.Text = "Delete";
-                            deleteBtn.Tag = dataReader[6];
-                            deleteBtn.BackColor = Color.Red;
-                            deleteBtn.ForeColor = Color.White;
-                            deleteBtn.Font = new Font(deleteBtn.Font, FontStyle.Bold);
-                            deleteBtn.AutoSize = true;
-                            deleteBtn.Dock = DockStyle.Right;
-                            deleteBtn.Click += new EventHandler(DeleteButton_Click);
-                            messagePanel.Controls.Add(deleteBtn);                       
-                            
+
+                            // Create and configure the delete button
+                            Button deleteBtn = new Button
+                            {
+                                Text = "Delete",
+                                Tag = dataReader[6],
+                                BackColor = Color.Red,
+                                ForeColor = Color.White,
+                                Font = new Font(Font, FontStyle.Bold),
+                                AutoSize = true,
+                                Dock = DockStyle.Right
+                            };
+                            deleteBtn.Click += new EventHandler(DelButton_Click);
+
+                            Button viewBtn = new Button
+                            {
+                                Text = "View",
+                                Tag = dataReader[6],
+                                BackColor = Color.Green,
+                                ForeColor = Color.White,
+                                Font = new Font(Font, FontStyle.Bold),
+                                AutoSize = true,
+                                Anchor = AnchorStyles.Right | AnchorStyles.Top,
+                                Padding = new Padding(0, 0, 10, 0)
+                            };
+
+
+                            viewBtn.Click += new EventHandler(ViewMessageBtn_Click);
+
+                            messagePanel.Controls.Add(deleteBtn);
+                            messagePanel.Controls.Add(viewBtn);
+
+                            // Add the message panel to the message list
                             MessageList.Controls.Add(messagePanel);
                         }
                     }                    
@@ -89,7 +130,7 @@ namespace CV_3._3___Messenger
             }                        
         }
 
-        private void DeleteButton_Click(object sender, EventArgs e)
+        private void DelButton_Click(object sender, EventArgs e)
         {
             Button btn = (Button)sender;
             object messageID = btn.Tag.ToString();
@@ -108,6 +149,50 @@ namespace CV_3._3___Messenger
             }
         }
 
+        private void DeleteButton_Click(object sender, EventArgs e)
+        {
+            DelButton_Click(selectedMessageID, e);
+        }
+
+        private void ViewMessageBtn_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+            object messageID = btn.Tag.ToString();
+            selectedMessageID = btn;
+
+            // SQL query to delete the message
+            string query = "SELECT Text, Subject, RecipientID FROM Messages WHERE MessageID = @Id";
+
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                int recipientID = 0;
+                // Set the parameters for the query
+                command.Parameters.AddWithValue("@id", messageID);
+                using (SqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        MessagePreview.Text = reader[0].ToString();
+                        SubjectTextBox.Text = reader[1].ToString();
+                        recipientID = reader.GetInt32(2);
+                    }
+                }
+
+                string query2 = "SELECT Username FROM Users WHERE UserID = @UserID;";
+                using (SqlCommand command2 = new SqlCommand(query2, connection))
+                {
+                    command2.Parameters.AddWithValue("@UserID", recipientID);
+                    using (SqlDataReader dataReader = command2.ExecuteReader())
+                    {
+                        while (dataReader.Read())
+                        {
+                            RecipientTextBox.Text = (string)dataReader["Username"];
+                        }
+                    }
+                }
+            }
+        }
+
         private void SentMsgs_Load(object sender, EventArgs e)
         {
             LoadSentMessagesPanel();
@@ -116,6 +201,11 @@ namespace CV_3._3___Messenger
         private void SentMsgs_Load_1(object sender, EventArgs e)
         {
             LoadSentMessagesPanel();
+        }
+
+        private void MessagePreview_TextChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.MessageList = new System.Windows.Forms.ListBox();
-            this.MessageView = new System.Windows.Forms.ListBox();
             this.DeleteMsg = new System.Windows.Forms.Button();
             this.RecipientTextBox = new System.Windows.Forms.TextBox();
             this.SubjectTextBox = new System.Windows.Forms.TextBox();
+            this.MessagePreview = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // MessageList
@@ -45,19 +45,9 @@
             this.MessageList.Size = new System.Drawing.Size(438, 469);
             this.MessageList.TabIndex = 1;
             // 
-            // MessageView
-            // 
-            this.MessageView.FormattingEnabled = true;
-            this.MessageView.ItemHeight = 15;
-            this.MessageView.Location = new System.Drawing.Point(454, 37);
-            this.MessageView.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.MessageView.Name = "MessageView";
-            this.MessageView.Size = new System.Drawing.Size(653, 244);
-            this.MessageView.TabIndex = 3;
-            // 
             // DeleteMsg
             // 
-            this.DeleteMsg.Location = new System.Drawing.Point(1002, 285);
+            this.DeleteMsg.Location = new System.Drawing.Point(1002, 433);
             this.DeleteMsg.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.DeleteMsg.Name = "DeleteMsg";
             this.DeleteMsg.Size = new System.Drawing.Size(105, 46);
@@ -84,15 +74,27 @@
             this.SubjectTextBox.Size = new System.Drawing.Size(315, 23);
             this.SubjectTextBox.TabIndex = 7;
             // 
+            // MessagePreview
+            // 
+            this.MessagePreview.Location = new System.Drawing.Point(454, 39);
+            this.MessagePreview.Multiline = true;
+            this.MessagePreview.Name = "MessagePreview";
+            this.MessagePreview.PlaceholderText = "MessagePreview";
+            this.MessagePreview.ReadOnly = true;
+            this.MessagePreview.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+            this.MessagePreview.Size = new System.Drawing.Size(653, 389);
+            this.MessagePreview.TabIndex = 8;
+            this.MessagePreview.TextChanged += new System.EventHandler(this.MessagePreview_TextChanged);
+            // 
             // SentMsgs
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1119, 493);
+            this.Controls.Add(this.MessagePreview);
             this.Controls.Add(this.SubjectTextBox);
             this.Controls.Add(this.RecipientTextBox);
             this.Controls.Add(this.DeleteMsg);
-            this.Controls.Add(this.MessageView);
             this.Controls.Add(this.MessageList);
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "SentMsgs";
@@ -110,5 +112,6 @@
         private Button DeleteMsg;
         private TextBox RecipientTextBox;
         private TextBox SubjectTextBox;
+        private TextBox MessagePreview;
     }
 }
